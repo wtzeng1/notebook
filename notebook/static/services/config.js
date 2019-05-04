@@ -31,10 +31,11 @@ function(utils) {
     ConfigSection.prototype._load_done = function() {
         if (!this._one_load_finished) {
             this._one_load_finished = true;
-            this._finish_firstload();
+            this._finish_firstload(); // z: resolve promise
         }
     };
-    
+
+    // z: Send request by $.ajax(), the request url is base_url/api/config/?_=${encoded_section_name}
     ConfigSection.prototype.load = function() {
         var that = this;
         return utils.promising_ajax(this.api_url(), {

@@ -34,33 +34,33 @@ define([
     './commandpalette',
     './shortcuteditor',
 ], function (
-    $,
-    IPython,
-    _,
-    utils,
-    i18n,
-    dialog,
-    cellmod,
-    textcell,
-    codecell,
-    moment,
-    configmod,
-    session,
-    celltoolbar,
-    marked,
-    CodeMirror,
-    runMode,
-    mathjaxutils,
-    keyboard,
-    tooltip,
-    default_celltoolbar,
-    rawcell_celltoolbar,
-    slideshow_celltoolbar,
-    attachments_celltoolbar,
-    tags_celltoolbar,
-    scrollmanager,
-    commandpalette,
-    shortcuteditor
+    $, // 'jquery'
+    IPython, // 'base/js/namespace'
+    _, // 'underscore'
+    utils, // 'base/js/utils'
+    i18n, // 'base/js/i18n'
+    dialog, // 'base/js/dialog'
+    cellmod, // './cell'
+    textcell, // './textcell'
+    codecell, // './codecell'
+    moment, // 'moment'
+    configmod, // 'services/config'
+    session, // 'services/sessions/session'
+    celltoolbar, // './celltoolbar'
+    marked, // 'components/marked/lib/marked'
+    CodeMirror, // 'codemirror/lib/codemirror'
+    runMode, // 'codemirror/addon/runmode/runmode'
+    mathjaxutils, // './mathjaxutils'
+    keyboard, // 'base/js/keyboard'
+    tooltip, // './tooltip'
+    default_celltoolbar, // './celltoolbarpresets/default'
+    rawcell_celltoolbar, // './celltoolbarpresets/rawcell'
+    slideshow_celltoolbar, // './celltoolbarpresets/slideshow'
+    attachments_celltoolbar, // './celltoolbarpresets/attachments'
+    tags_celltoolbar, // './celltoolbarpresets/tags'
+    scrollmanager, // './scrollmanager'
+    commandpalette, // './commandpalette'
+    shortcuteditor // './shortcuteditor'
 ) {
 
     var ShortcutEditor = shortcuteditor.ShortcutEditor;
@@ -116,6 +116,7 @@ define([
         
         mathjaxutils.init();
 
+        // z: Set markdown options
         if (marked) {
             marked.setOptions({
                 gfm : true,
@@ -514,6 +515,7 @@ define([
     /**
      * Set the dirty flag, and trigger the set_dirty.Notebook event
      */
+    // z: Not cleat what is set dirty
     Notebook.prototype.set_dirty = function (value) {
         if (value === undefined) {
             value = true;
@@ -2238,7 +2240,7 @@ define([
             this.session.restart(options, success, failure);
         } else {
             this.session = new session.Session(options);
-            this.session.start(success, failure);
+            this.session.start(success, failure); // z: notebook -> session start -> kernel start -> start channels (ws)
         }
     };
 

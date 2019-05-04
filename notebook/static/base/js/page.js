@@ -7,6 +7,7 @@ define([
 ], function($, events){
     "use strict";
 
+    // z: Page cares about header and site divs
     var Page = function (header_div_selector, site_div_selector) {
         /**
         * Constructor

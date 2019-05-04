@@ -47,31 +47,31 @@ requirejs([
     'notebook/js/clipboard',
     'bidi/bidi'
 ], function(
-    $,
-    contents_service,
-    IPython,
-    notebook,
-    configmod,
-    utils,
-    page,
-    events,
-    promises,
-    loginwidget,
-    maintoolbar,
-    pager,
-    nb_promises,
-    quickhelp,
-    menubar,
-    notificationarea,
-    savewidget,
-    actions,
-    keyboardmanager,
-    kernelselector,
-    CodeMirror,
-    about,
-    searchandreplace,
-    clipboard,
-    bidi
+    $, // 'jquery'
+    contents_service, // 'services/contents'
+    IPython, // 'base/js/namespace'
+    notebook, // 'notebook/js/notebook'
+    configmod, // 'services/config'
+    utils, // 'base/js/utils'
+    page, // 'base/js/page'
+    events, // 'base/js/events'
+    promises, // 'base/js/promises'
+    loginwidget, // 'auth/js/loginwidget'
+    maintoolbar, // 'notebook/js/maintoolbar'
+    pager, // 'notebook/js/pager'
+    nb_promises, // 'notebook/js/promises'
+    quickhelp, // 'notebook/js/quickhelp'
+    menubar, // 'notebook/js/menubar'
+    notificationarea, // 'notebook/js/notificationarea'
+    savewidget, // 'notebook/js/savewidget'
+    actions, // 'notebook/js/actions'
+    keyboardmanager, // 'notebook/js/keyboardmanager'
+    kernelselector, // 'notebook/js/kernelselector'
+    CodeMirror, // 'codemirror/lib/codemirror'
+    about, // 'notebook/js/about'
+    searchandreplace, // 'notebook/js/searchandreplace'
+    clipboard, // 'notebook/js/clipboard'
+    bidi // 'bidi/bidi
     ) {
     "use strict";
 
@@ -92,6 +92,7 @@ requirejs([
     // Setup all of the config related things
     
 
+    // z: get common options from <body> element
     var common_options = {
         ws_url : utils.get_body_data("wsUrl"),
         base_url : utils.get_body_data("baseUrl"),
@@ -100,27 +101,27 @@ requirejs([
     };
 
     var config_section = new configmod.ConfigSection('notebook', common_options);
-    config_section.load();
+    config_section.load(); // z: config_section.data is set by load()
     var common_config = new configmod.ConfigSection('common', common_options);
-    common_config.load();
+    common_config.load(); // z: common_config.data is set by load()
 
     // Instantiate the main objects
     
-    var page = new page.Page('div#header', 'div#site');
+    var page = new page.Page('div#header', 'div#site'); // z: header and main site instance
     var pager = new pager.Pager('div#pager', {
         events: events});
-    var acts = new actions.init();
+    var acts = new actions.init(); // z: various actions in notebook/js/actions.js
     var keyboard_manager = new keyboardmanager.KeyboardManager({
         pager: pager,
         events: events,
         actions: acts, 
         config: config_section,
-    });
+    }); // z: Keyboard Manager could map the keyboards which are pressed to actions, both edit or command mode
     var save_widget = new savewidget.SaveWidget('span#save_widget', {
         events: events,
-        keyboard_manager: keyboard_manager});
+        keyboard_manager: keyboard_manager}); // z: SaveWidget handle the name and saving status of notebook
     acts.extend_env({save_widget:save_widget});
-    var contents = new contents_service.Contents({
+    var contents = new contents_service.Contents({ // z: Notebook Contents API
           base_url: common_options.base_url,
           common_config: common_config
         });
@@ -130,8 +131,8 @@ requirejs([
         save_widget: save_widget,
         contents: contents,
         config: config_section},
-        common_options));
-    var login_widget = new loginwidget.LoginWidget('span#login_widget', common_options);
+        common_options)); // z: Instantiate a notebook application, there is a session in it and this session establish a websocket
+    var login_widget = new loginwidget.LoginWidget('span#login_widget', common_options); // z: The login widget at the top right
     var toolbar = new maintoolbar.MainToolBar('#maintoolbar-container', {
         notebook: notebook,
         events: events,
